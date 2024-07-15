@@ -1,9 +1,13 @@
 // create reference for input fields.
 const firstNameInput = document.querySelector("#first-name-input");
 const lastNameInput = document.querySelector("#last-name-input");
+const EmailInput = document.querySelector("#email-input");
+const PassInput = document.querySelector("#password-input");
+const ConPassInput = document.querySelector("#password-confirm-input");
 
 // create reference for buttons.
 const submitBtn = document.querySelector("#submit-btn");
+const resetBtn = document.querySelector("#reset-btn")
 
 // simple email validation
 function validateEmail(email) {
@@ -17,6 +21,22 @@ firstNameInput.onkeyup = () => {
   firstNameInput.classList.remove("is-valid");
   firstNameInput.classList.remove("is-invalid");
 };
+lastNameInput.onkeyup =()=>{
+  lastNameInput.classList.remove("is-valid");
+  lastNameInput.classList.remove("is-invalid");
+};
+EmailInput.onkeyup=()=>{
+  EmailInput.classList.remove("is-valid");
+  EmailInput.classList.remove("is-invalid");
+}
+PassInput.onkeyup=()=>{
+  PassInput.classList.remove("is-valid");
+  PassInput.classList.remove("is-invalid");
+}
+ConPassInput.onkeyup=()=>{
+  ConPassInput.classList.remove("is-valid");
+  ConPassInput.classList.remove("is-invalid");
+}
 
 // add callback functions for other input events.
 // (lastname, email, password, confirm password)
@@ -24,9 +44,13 @@ firstNameInput.onkeyup = () => {
 // add callback function for submit button.
 submitBtn.onclick = () => {
   isFirstNameOk = false;
+  isLastNameOk = false;
+  isEmailOk=false;
+  isPassword=false;
+  isCon=false;
 
   // validate first name
-  if (firstNameInput.value !== "CPE207") {
+  if (firstNameInput.value === "") {
     firstNameInput.classList.add("is-invalid");
   } else {
     firstNameInput.classList.add("is-valid");
@@ -34,14 +58,56 @@ submitBtn.onclick = () => {
   }
 
   // validate last name
+  if(lastNameInput.value===""){
+    lastNameInput.classList.add("is-invalid");
+
+  }
+  else{
+    lastNameInput.classList.add("is-valid");
+    isLastNameOk=true;
+  }
 
   // validate email
-
+  if(validateEmail(EmailInput.value)){
+    EmailInput.classList.add("is-valid");
+    isEmailOk=true;
+  }
+  else{
+    EmailInput.classList.add("is-invalid");
+  }
   // validate password
-
+  if(PassInput.value.length>= 6){
+    PassInput.classList.add("is-valid");
+    isPassword=true;
+  }
+  else{
+    PassInput.classList.add("is-invalid");
+  }
   // validate confirm password
+  if(PassInput.value===ConPassInput.value&&ConPassInput.value.length>=6){
+    ConPassInput.classList.add("is-valid");
+    isCon=true;
+  }
+  else{
+    ConPassInput.classList.add("is-invalid")
+  }
 
-  if (isFirstNameOk) alert("Registered successfully");
+  if (isFirstNameOk&&isLastNameOk&&isEmailOk&&isPassword&&isCon) alert("Registered successfully");
+  
 };
 
+
+
 // add callback function for Reset button.
+resetBtn.onclick=()=>{
+  firstNameInput.value = "";
+  lastNameInput.value = "";
+  EmailInput.value = "";
+  PassInput.value = "";
+  ConPassInput.value = "";
+  firstNameInput.onkeyup();
+  lastNameInput.onkeyup();
+  EmailInput.onkeyup();
+  PassInput.onkeyup();
+  ConPassInput.onkeyup();
+}
